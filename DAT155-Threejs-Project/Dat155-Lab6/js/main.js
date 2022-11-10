@@ -21,12 +21,8 @@ import MouseLookController from './controls/MouseLookController.js';
 import TextureSplattingMaterial from './materials/TextureSplattingMaterial.js';
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
 
-import { SimplexNoise } from './lib/SimplexNoise.js';
 import { Water } from "./terrain/Water.js";
 
-import SkyDome from './terrain/SkyDome.js';
-
-import Lava from './terrain/Lava.js';
 import SkyBox from './terrain/SkyBox.js';
 
 import Grass from './objects/Grass.js';
@@ -113,11 +109,9 @@ async function main() {
     const heightmapImage = await Utilities.loadImage('resources/images/images.jpg');
     const width = 300;
 
-    const simplex = new SimplexNoise();
     const terrainGeometry = new TerrainBufferGeometry({
         width,
         heightmapImage,
-        // noiseFn: simplex.noise.bind(simplex),
         numberOfSubdivisions: 128,
         height: 60
     });
@@ -179,11 +173,10 @@ async function main() {
         }
     }
 
-    for(let i =0; i<10; i++){
+    for(let i =0; i<100; i++){
         const grass = new Grass({texture:GrassTexture});
         makeGrass(grass);
     }
-
 
 
     /**
@@ -194,11 +187,8 @@ async function main() {
 
 
     /**
-     * Adding a skyDome
+     * Add skybox
      */
-    //let skyDome = new SkyDome();
-    //scene.add(skyDome);
-
     let skyBox = new SkyBox();
     scene.add(skyBox);
 
@@ -237,13 +227,6 @@ async function main() {
     water.rotation.x = - Math.PI / 2;
     water.translateZ(6);
     scene.add( water );
-
-
-    /**
-     * Add lava
-     */
-    //let lava = new Lava();
-    //scene.add(lava);
 
 
     /**
@@ -390,7 +373,7 @@ async function main() {
 
         requestAnimationFrame(loop);
 
-    };
+    }
 
     loop(performance.now());
 
