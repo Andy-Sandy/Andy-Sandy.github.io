@@ -240,18 +240,14 @@ async function main() {
      * Add boat
      */
     let boat = new Boat(scene);
-    scene.add(boat);
+    boat.generateBoat();
 
     /**
      * Animations
      */
-    let t = 0;
+
     function animate() {
         requestAnimationFrame( animate );
-        t+=0.001;
-        boat.position.x = 225*Math.cos(t);
-        boat.position.z = 225*Math.sin(t);
-        boat.rotation.y -= 0.001;
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
 
         renderer.render( scene, camera );

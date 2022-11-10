@@ -1,42 +1,52 @@
 import {
     Object3D,
-    TextureLoader,
-    Mesh,
-    BoxGeometry,
-    MeshPhongMaterial,
-    DoubleSide
 } from "../lib/three.module.js";
+import {GLTFLoader} from "../loaders/GLTFLoader.js";
 
 
 export default class Boat extends Object3D {
     constructor(scene) {
         super();
         this.scene = scene;
+    }
 
-        // Texture Loading
-        let loader = new TextureLoader();
-        let texture = loader.load('resources/models/box/crate0_diffuse.png');
-        let bumpMap = loader.load('resources/models/box/crate0_bump.png');
-        let normalMap = loader.load('resources/models/box/crate0_normal.png');
+    generateBoat(){
+        // instantiate a GLTFLoader:
+        const loader = new GLTFLoader();
+        let loadedBoat;
 
-        // Create mesh with these textures
-        let boat = new Mesh(
-            new BoxGeometry(10, 10, 10),
-            new MeshPhongMaterial({
-                color: 0xffffff,
-                map: texture,
-                bumpMap: bumpMap,
-                normalMap: normalMap,
-                side: DoubleSide
-            })
+        loader.load(
+            // resource URL
+            'resources/models/boat/boat.glb',
+            // called when resource is loaded
+            (boat) => {
+                boat.scene.traverse(c =>{
+                    c.castShadow = true;
+                });
+                loadedBoat = boat;
+                loadedBoat.scene.position.y = 6;
+
+                this.scene.add(boat.scene);
+            },
+            (xhr) => {
+                console.log(((xhr.loaded / xhr.total) * 100) + '% loaded');
+            },
+            (error) => {
+                console.error('Error loading model.', error);
+            }
         );
 
-        boat.position.set(0, 10, 0);
-
-        boat.receiveShadow = true;
-        boat.castShadow = true;
-
-        this.add(boat);
-
+        let t = 0;
+        function animateBoat(){
+            if(loadedBoat){
+                t += 0.001;
+                loadedBoat.scene.position.x = 225*Math.cos(t);
+                loadedBoat.scene.position.z = 225*Math.sin(t);
+                loadedBoat.scene.rotation.y -= 0.001;
+            }
+            requestAnimationFrame(animateBoat);
+        }
+        animateBoat();
     }
+
 }
