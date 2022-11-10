@@ -29,6 +29,7 @@ import Grass from './objects/Grass.js';
 import Tree from './objects/Tree.js';
 import Cloud from './objects/Cloud.js';
 import Box from './objects/Box.js';
+import Boat from './objects/Boat.js';
 
 
 async function main() {
@@ -39,7 +40,7 @@ async function main() {
      *
      * @type {FogExp2}
      */
-    scene.fog = new FogExp2(0xbc9fcc, 0.004);
+    scene.fog = new FogExp2(0xbc9fcc, 0.0025);
 
 
     const axesHelper = new AxesHelper(15);
@@ -121,10 +122,10 @@ async function main() {
     grassTexture.wrapT = RepeatWrapping;
     grassTexture.repeat.set(5000 / width, 5000 / width);
 
-    const snowyRockTexture = new TextureLoader().load('resources/textures/stone_04.jpg');
-    snowyRockTexture.wrapS = RepeatWrapping;
-    snowyRockTexture.wrapT = RepeatWrapping;
-    snowyRockTexture.repeat.set(1500 / width, 1500 / width);
+    const rockTexture = new TextureLoader().load('resources/textures/rock_03.png');
+    rockTexture.wrapS = RepeatWrapping;
+    rockTexture.wrapT = RepeatWrapping;
+    rockTexture.repeat.set(1500 / width, 1500 / width);
 
 
     const splatMap = new TextureLoader().load('resources/images/splatmap_01.png');
@@ -132,7 +133,7 @@ async function main() {
     const terrainMaterial = new TextureSplattingMaterial({
         color: 0xffffff,
         shininess: 0,
-        textures: [snowyRockTexture, grassTexture],
+        textures: [rockTexture, grassTexture],
         splatMaps: [splatMap]
     });
 
@@ -235,13 +236,22 @@ async function main() {
     let box = new Box(scene);
     scene.add(box);
 
+    /**
+     * Add boat
+     */
+    let boat = new Boat(scene);
+    scene.add(boat);
 
     /**
      * Animations
      */
+    let t = 0;
     function animate() {
-
         requestAnimationFrame( animate );
+        t+=0.001;
+        boat.position.x = 225*Math.cos(t);
+        boat.position.z = 225*Math.sin(t);
+        boat.rotation.y -= 0.001;
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
 
         renderer.render( scene, camera );

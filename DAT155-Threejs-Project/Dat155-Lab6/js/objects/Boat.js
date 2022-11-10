@@ -7,7 +7,8 @@ import {
     DoubleSide
 } from "../lib/three.module.js";
 
-export default class Box extends Object3D {
+
+export default class Boat extends Object3D {
     constructor(scene) {
         super();
         this.scene = scene;
@@ -19,7 +20,7 @@ export default class Box extends Object3D {
         let normalMap = loader.load('resources/models/box/crate0_normal.png');
 
         // Create mesh with these textures
-        let box = new Mesh(
+        let boat = new Mesh(
             new BoxGeometry(10, 10, 10),
             new MeshPhongMaterial({
                 color: 0xffffff,
@@ -30,16 +31,12 @@ export default class Box extends Object3D {
             })
         );
 
-        box.position.set(-60, 55, -60);
+        boat.position.set(0, 10, 0);
 
-        box.receiveShadow = true;
-        box.castShadow = true;
+        boat.receiveShadow = true;
+        boat.castShadow = true;
 
-        box.rotateX(1);
-        box.rotateZ(1);
-        box.rotateY(1);
-
-        this.add(box);
+        this.add(boat);
 
     }
 }

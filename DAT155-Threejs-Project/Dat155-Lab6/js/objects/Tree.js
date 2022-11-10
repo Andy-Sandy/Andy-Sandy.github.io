@@ -21,8 +21,8 @@ export default class Tree extends Object3D {
             'resources/models/kenney_nature_kit/tree_thin.glb',
             // called when resource is loaded
             (object) => {
-                for (let x = -75; x < 150; x += 12) {
-                    for (let z = -75; z < 150; z += 12) {
+                for (let x = -125; x < 222; x += 10) {
+                    for (let z = -125; z < 222; z += 10) {
 
                         const px = x + 1 + (6 * Math.random()) - 3;
                         const pz = z + 1 + (6 * Math.random()) - 3;
