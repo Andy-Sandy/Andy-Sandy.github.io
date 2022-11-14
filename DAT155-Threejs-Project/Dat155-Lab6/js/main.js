@@ -87,6 +87,12 @@ async function main() {
     directionalLight.shadow.camera.near = 0.5;
     directionalLight.shadow.camera.far = 2000;
 
+    let side = 1000;
+    directionalLight.shadow.camera.top = side;
+    directionalLight.shadow.camera.bottom = -side;
+    directionalLight.shadow.camera.left = side;
+    directionalLight.shadow.camera.right = -side;
+    
     scene.add(directionalLight);
 
     // Set direction
@@ -138,7 +144,6 @@ async function main() {
 
     const terrain = new Mesh(terrainGeometry, terrainMaterial);
 
-    terrain.castShadow = true;
     terrain.receiveShadow = true;
 
     scene.add(terrain);
