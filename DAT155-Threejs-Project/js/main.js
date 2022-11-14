@@ -10,7 +10,7 @@ import {
     Vector3,
     AxesHelper,
     Raycaster,
-    FogExp2,
+    FogExp2, Group,
 } from './lib/three.module.js';
 
 import * as THREE from './lib/three.module.js';
@@ -33,8 +33,6 @@ import Cloud from './objects/Cloud.js';
 import Box from './objects/Box.js';
 import Boat from './objects/Boat.js';
 
-
-
 async function main() {
 
     const scene = new Scene();
@@ -48,12 +46,26 @@ async function main() {
     const axesHelper = new AxesHelper(15);
     scene.add(axesHelper);
 
+    /**
+     * Camera
+     * @type {PerspectiveCamera}
+     */
     const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 150;
+    camera.position.y = 100;
+    camera.rotation.x -= Math.PI * 0.25;
 
+    /**
+     * Renderer
+     * @type {WebGLRenderer}
+     */
     const renderer = new WebGLRenderer({ antialias: true });
     renderer.setClearColor(scene.fog.color);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
+    /**
+     * Enable shadowMap and declare type
+     */
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = PCFSoftShadowMap;
 
@@ -69,11 +81,6 @@ async function main() {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
     }, false);
-
-    /**
-     * Add canvas element to DOM.
-     */
-    document.body.appendChild(renderer.domElement);
 
     /**
      * VR implementation
@@ -110,11 +117,6 @@ async function main() {
     directionalLight.target.position.set(0, 15, 0);
     scene.add(directionalLight.target);
 
-    camera.position.z = 70;
-    camera.position.y = 55;
-    camera.rotation.x -= Math.PI * 0.25;
-
-
     /**
      * Add terrain:
      *
@@ -133,17 +135,19 @@ async function main() {
         height: 60
     });
 
+    // Load grass texture
     const grassTexture = new TextureLoader().load('resources/textures/grass_02.png');
     grassTexture.wrapS = RepeatWrapping;
     grassTexture.wrapT = RepeatWrapping;
     grassTexture.repeat.set(5000 / width, 5000 / width);
 
+    // Load rock texture
     const rockTexture = new TextureLoader().load('resources/textures/rock_03.png');
     rockTexture.wrapS = RepeatWrapping;
     rockTexture.wrapT = RepeatWrapping;
     rockTexture.repeat.set(1500 / width, 1500 / width);
 
-
+    // Load splatMap
     const splatMap = new TextureLoader().load('resources/images/splatmap.jpg');
 
     const terrainMaterial = new TextureSplattingMaterial({
@@ -176,7 +180,6 @@ async function main() {
 
         const raycaster = new Raycaster();
         const direction = new Vector3(0.0, -1.0, 0.0);
-        //const move = new Vector3();
 
         raycaster.set(new Vector3(x, 150, z), direction);
         let array = raycaster.intersectObject(terrain);
@@ -260,7 +263,6 @@ async function main() {
     /**
      * Animations
      */
-
     function animate() {
         requestAnimationFrame( animate );
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
@@ -269,10 +271,7 @@ async function main() {
 
     }
     animate();
-
-    /**
-     * Set up camera controller:
-     */
+/*
 
     const mouseLookController = new MouseLookController(camera);
 
@@ -347,13 +346,13 @@ async function main() {
             e.preventDefault();
         }
     });
-
+*/
     const velocity = new Vector3(0.0, 0.0, 0.0);
 
     let then = performance.now();
     function loop(now) {
 
-        const delta = now - then;
+        /* const delta = now - then;
         then = now;
 
         const moveSpeed = move.speed * delta * 5;
@@ -388,6 +387,8 @@ async function main() {
         // apply rotation to velocity vector, and translate moveNode with it.
         velocity.applyQuaternion(camera.quaternion);
         camera.position.add(velocity);
+
+        */
 
         // render scene:
         renderer.render(scene, camera);
