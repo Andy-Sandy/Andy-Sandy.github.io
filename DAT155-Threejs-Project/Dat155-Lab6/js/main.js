@@ -16,12 +16,14 @@ import {
 import * as THREE from './lib/three.module.js';
 
 import Utilities from './lib/Utilities.js';
+import {VRButton} from "./lib/VRButton.js";
 import MouseLookController from './controls/MouseLookController.js';
 
 import TextureSplattingMaterial from './materials/TextureSplattingMaterial.js';
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
 
 import { Water } from "./terrain/Water.js";
+
 
 import SkyBox from './terrain/SkyBox.js';
 
@@ -30,6 +32,7 @@ import Tree from './objects/Tree.js';
 import Cloud from './objects/Cloud.js';
 import Box from './objects/Box.js';
 import Boat from './objects/Boat.js';
+
 
 
 async function main() {
@@ -72,6 +75,14 @@ async function main() {
      */
     document.body.appendChild(renderer.domElement);
 
+    /**
+     * VR implementation
+     */
+    renderer.xr.enabled = true;
+    //"Returns" canvas-element to index.html <body>
+    document.body.appendChild(renderer.domElement);
+    //Creates the button used to go into VR
+    document.body.append(VRButton.createButton(renderer));
 
     /**
      * Add light
