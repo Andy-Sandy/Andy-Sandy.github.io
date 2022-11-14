@@ -20,7 +20,7 @@ export default class Box extends Object3D {
 
         // Create mesh with these textures
         let box = new Mesh(
-            new BoxGeometry(10, 10, 10),
+            new BoxGeometry(3, 3, 3),
             new MeshPhongMaterial({
                 color: 0xffffff,
                 map: texture,
@@ -30,14 +30,14 @@ export default class Box extends Object3D {
             })
         );
 
-        box.position.set(-60, 55, -60);
+        box.position.set(-65, 50.35, -60);
 
         box.receiveShadow = true;
         box.castShadow = true;
 
         box.rotateX(1);
-        box.rotateZ(1);
-        box.rotateY(1);
+        box.rotateZ(2);
+        box.rotateY(2.2);
 
         this.add(box);
 
