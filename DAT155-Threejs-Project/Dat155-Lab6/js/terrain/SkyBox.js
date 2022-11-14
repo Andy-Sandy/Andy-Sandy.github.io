@@ -16,12 +16,12 @@ export default class SkyBox extends Object3D {
         let skyGeometry = new BoxGeometry( 1200, 700, 1200);
 
 
-        let texture_bk = loader.load('resources/skydome/yonder_bk.jpg');
-        let texture_dn = loader.load('resources/skydome/yonder_dn.jpg');
-        let texture_ft = loader.load('resources/skydome/yonder_ft.jpg');
-        let texture_lf = loader.load('resources/skydome/yonder_lf.jpg');
-        let texture_rt = loader.load('resources/skydome/yonder_rt.jpg');
-        let texture_up = loader.load('resources/skydome/yonder_up.jpg');
+        let texture_bk = loader.load('resources/skybox/yonder_bk.jpg');
+        let texture_dn = loader.load('resources/skybox/yonder_dn.jpg');
+        let texture_ft = loader.load('resources/skybox/yonder_ft.jpg');
+        let texture_lf = loader.load('resources/skybox/yonder_lf.jpg');
+        let texture_rt = loader.load('resources/skybox/yonder_rt.jpg');
+        let texture_up = loader.load('resources/skybox/yonder_up.jpg');
 
 
         let mat_bk = new MeshBasicMaterial( {

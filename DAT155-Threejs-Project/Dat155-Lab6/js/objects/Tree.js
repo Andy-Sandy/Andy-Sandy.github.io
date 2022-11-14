@@ -18,7 +18,7 @@ export default class Tree extends Object3D {
 
         loader.load(
             // resource URL
-            'resources/models/kenney_nature_kit/tree_thin.glb',
+            'resources/models/tree/low_poly_tree.glb',
             // called when resource is loaded
             (object) => {
                 for (let x = -125; x < 222; x += 10) {
@@ -43,7 +43,7 @@ export default class Tree extends Object3D {
                             tree.position.y = height - 0.01;
                             tree.position.z = pz;
 
-                            tree.rotation.y = Math.random() * (2 * Math.PI);
+                            tree.rotation.z = Math.random() * (2 * Math.PI);
 
                             tree.scale.multiplyScalar(3 + Math.random() * 7);
 

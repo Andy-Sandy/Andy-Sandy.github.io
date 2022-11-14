@@ -42,14 +42,13 @@ async function main() {
      */
     scene.fog = new FogExp2(0xbc9fcc, 0.0025);
 
-
     const axesHelper = new AxesHelper(15);
     scene.add(axesHelper);
 
     const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     const renderer = new WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xffffff);
+    renderer.setClearColor(scene.fog.color);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     renderer.shadowMap.enabled = true;
@@ -78,13 +77,13 @@ async function main() {
      * Add light
      */
     const directionalLight = new DirectionalLight(0xffffff);
-    directionalLight.position.set(300, 400, 0);
+    directionalLight.position.set(0,400, 300);
 
     directionalLight.castShadow = true;
 
     //Set up shadow properties for the light
-    directionalLight.shadow.mapSize.width = 512;
-    directionalLight.shadow.mapSize.height = 512;
+    directionalLight.shadow.mapSize.width = 4096;
+    directionalLight.shadow.mapSize.height = 4096;
     directionalLight.shadow.camera.near = 0.5;
     directionalLight.shadow.camera.far = 2000;
 
@@ -221,7 +220,7 @@ async function main() {
             sunColor: 0xffffff,
             waterColor: 0x68d9c6,
             distortionScale: 5,
-            fog: scene.fog !== undefined
+            fog: true
         }
     );
 
