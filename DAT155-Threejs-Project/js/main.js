@@ -248,26 +248,11 @@ async function main() {
     let boat = new Boat(scene);
     boat.generateBoat();
 
-    /**
-     * Animations
-     */
-    /*
-    function animate() {
-        requestAnimationFrame( animate );
-        water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
-
-        renderer.render( scene, camera );
-
-    }
-
-    animate();
-    */
-
     const mouseLookController = new MouseLookController(camera);
 
     // We attach a click lister to the canvas-element so that we can request a pointer lock.
     // https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
-    const canvas = renderer.domElement;
+    /* const canvas = renderer.domElement;
 
     canvas.addEventListener('click', () => {
         canvas.requestPointerLock();
@@ -336,7 +321,7 @@ async function main() {
             e.preventDefault();
         }
     });
-
+    */
     /**
      * VR implementation
      */
@@ -356,6 +341,7 @@ async function main() {
         const delta = now - then;
         then = now;
 
+        /*
         const moveSpeed = move.speed * delta * 5;
 
         velocity.set(0.0, 0.0, 0.0);
@@ -388,6 +374,7 @@ async function main() {
         // apply rotation to velocity vector, and translate moveNode with it.
         velocity.applyQuaternion(camera.quaternion);
         camera.position.add(velocity);
+        */
 
         // animate water
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
@@ -396,8 +383,6 @@ async function main() {
         renderer.render(scene, camera);
 
     }
-
-    loop(performance.now());
 
 }
 
