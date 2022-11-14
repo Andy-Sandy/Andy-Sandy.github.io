@@ -275,8 +275,6 @@ async function main() {
     animate();
     */
 
-    renderer.setAnimationLoop(loop.bind(this));
-
     const mouseLookController = new MouseLookController(camera);
 
     // We attach a click lister to the canvas-element so that we can request a pointer lock.
@@ -350,6 +348,8 @@ async function main() {
             e.preventDefault();
         }
     });
+
+    renderer.setAnimationLoop(loop.bind(this));
 
     const velocity = new Vector3(0.0, 0.0, 0.0);
 
