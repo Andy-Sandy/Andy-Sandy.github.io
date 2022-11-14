@@ -133,7 +133,7 @@ async function main() {
     rockTexture.repeat.set(1500 / width, 1500 / width);
 
 
-    const splatMap = new TextureLoader().load('resources/images/splatmap_01.png');
+    const splatMap = new TextureLoader().load('resources/images/splatmap.jpg');
 
     const terrainMaterial = new TextureSplattingMaterial({
         color: 0xffffff,
