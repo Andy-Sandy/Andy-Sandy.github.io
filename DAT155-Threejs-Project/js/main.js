@@ -12,19 +12,16 @@ import {
     Raycaster,
     FogExp2, Group,
 } from './lib/three.module.js';
-
 import * as THREE from './lib/three.module.js';
-
 import Utilities from './lib/Utilities.js';
 import {VRButton} from "./lib/VRButton.js";
+
 import MouseLookController from './controls/MouseLookController.js';
 
 import TextureSplattingMaterial from './materials/TextureSplattingMaterial.js';
 import TerrainBufferGeometry from './terrain/TerrainBufferGeometry.js';
 
 import { Water } from "./terrain/Water.js";
-
-
 import SkyBox from './terrain/SkyBox.js';
 
 import Grass from './objects/Grass.js';
@@ -81,15 +78,6 @@ async function main() {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
     }, false);
-
-    /**
-     * VR implementation
-     */
-    renderer.xr.enabled = true;
-    //"Returns" canvas-element to index.html <body>
-    document.body.appendChild(renderer.domElement);
-    //Creates the button used to go into VR
-    document.body.append(VRButton.createButton(renderer));
 
     /**
      * Add light
@@ -349,6 +337,15 @@ async function main() {
         }
     });
 
+    /**
+     * VR implementation
+     */
+    renderer.xr.enabled = true;
+    //"Returns" canvas-element to index.html <body>
+    document.body.appendChild(renderer.domElement);
+    //Creates the button used to go into VR
+    document.body.append(VRButton.createButton(renderer));
+
     renderer.setAnimationLoop(loop.bind(this));
 
     const velocity = new Vector3(0.0, 0.0, 0.0);
@@ -392,7 +389,9 @@ async function main() {
         velocity.applyQuaternion(camera.quaternion);
         camera.position.add(velocity);
 
+        // animate water
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
+
         // render scene:
         renderer.render(scene, camera);
 
