@@ -263,6 +263,7 @@ async function main() {
     /**
      * Animations
      */
+    /*
     function animate() {
         requestAnimationFrame( animate );
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
@@ -270,8 +271,11 @@ async function main() {
         renderer.render( scene, camera );
 
     }
+
     animate();
-/*
+    */
+
+    renderer.setAnimationLoop(loop.bind(this));
 
     const mouseLookController = new MouseLookController(camera);
 
@@ -346,13 +350,13 @@ async function main() {
             e.preventDefault();
         }
     });
-*/
+
     const velocity = new Vector3(0.0, 0.0, 0.0);
 
     let then = performance.now();
     function loop(now) {
 
-        /* const delta = now - then;
+        const delta = now - then;
         then = now;
 
         const moveSpeed = move.speed * delta * 5;
@@ -388,12 +392,9 @@ async function main() {
         velocity.applyQuaternion(camera.quaternion);
         camera.position.add(velocity);
 
-        */
-
+        water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
         // render scene:
         renderer.render(scene, camera);
-
-        requestAnimationFrame(loop);
 
     }
 
