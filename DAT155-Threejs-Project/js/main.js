@@ -10,7 +10,7 @@ import {
     Vector3,
     AxesHelper,
     Raycaster,
-    FogExp2, Group,
+    FogExp2,
 } from './lib/three.module.js';
 import * as THREE from './lib/three.module.js';
 import Utilities from './lib/Utilities.js';
@@ -235,7 +235,6 @@ async function main() {
     water.translateZ(6);
     scene.add( water );
 
-
     /**
      * Add box
      */
@@ -248,11 +247,11 @@ async function main() {
     let boat = new Boat(scene);
     boat.generateBoat();
 
-    //const mouseLookController = new MouseLookController(camera);
+    const mouseLookController = new MouseLookController(camera);
 
     // We attach a click lister to the canvas-element so that we can request a pointer lock.
     // https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
-    /* const canvas = renderer.domElement;
+    const canvas = renderer.domElement;
 
     canvas.addEventListener('click', () => {
         canvas.requestPointerLock();
@@ -321,7 +320,7 @@ async function main() {
             e.preventDefault();
         }
     });
-    */
+
 
     /**
      * VR implementation
@@ -332,12 +331,7 @@ async function main() {
     //Creates the button used to go into VR
     document.body.append(VRButton.createButton(renderer));
 
-    renderer.xr.addEventListener('sessionstart', ()=>{
-        renderer.xr.getCamera().position.set(50, 50, 50);
-    });
-
     renderer.setAnimationLoop(loop.bind(this));
-
 
     const velocity = new Vector3(0.0, 0.0, 0.0);
 
@@ -347,7 +341,6 @@ async function main() {
         const delta = now - then;
         then = now;
 
-        /*
         const moveSpeed = move.speed * delta * 5;
 
         velocity.set(0.0, 0.0, 0.0);
@@ -380,7 +373,6 @@ async function main() {
         // apply rotation to velocity vector, and translate moveNode with it.
         velocity.applyQuaternion(camera.quaternion);
         camera.position.add(velocity);
-        */
 
         // animate water
         water.material.uniforms[ 'time' ].value += 1.0 / 120.0;
