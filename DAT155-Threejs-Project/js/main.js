@@ -248,7 +248,7 @@ async function main() {
     let boat = new Boat(scene);
     boat.generateBoat();
 
-    const mouseLookController = new MouseLookController(camera);
+    //const mouseLookController = new MouseLookController(camera);
 
     // We attach a click lister to the canvas-element so that we can request a pointer lock.
     // https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
@@ -325,13 +325,19 @@ async function main() {
     /**
      * VR implementation
      */
+
     renderer.xr.enabled = true;
     //"Returns" canvas-element to index.html <body>
     document.body.appendChild(renderer.domElement);
     //Creates the button used to go into VR
     document.body.append(VRButton.createButton(renderer));
 
+    renderer.xr.addEventListener('sessionstart', ()=>{
+        renderer.xr.getCamera().position.copy(camera.position);
+    });
+
     renderer.setAnimationLoop(loop.bind(this));
+
 
     const velocity = new Vector3(0.0, 0.0, 0.0);
 
