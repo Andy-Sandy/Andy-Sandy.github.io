@@ -322,10 +322,10 @@ async function main() {
         }
     });
     */
+
     /**
      * VR implementation
      */
-
     renderer.xr.enabled = true;
     //"Returns" canvas-element to index.html <body>
     document.body.appendChild(renderer.domElement);
@@ -333,7 +333,7 @@ async function main() {
     document.body.append(VRButton.createButton(renderer));
 
     renderer.xr.addEventListener('sessionstart', ()=>{
-        renderer.xr.getCamera().position.copy(camera.position);
+        renderer.xr.getCamera().position.set(50, 50, 50);
     });
 
     renderer.setAnimationLoop(loop.bind(this));
